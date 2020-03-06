@@ -122,7 +122,7 @@ def solve_lineage_instance(
 
         for n in subgraph:
             spl = n.split("_")
-            nn = Node("state-node", spl[0].split("|"), is_target=False)
+            nn = Node(n, spl[0].split("|"), is_target=False)
 
             if len(spl) == 2:
                 if "target" in n and nn.char_string not in target_seen:
@@ -209,7 +209,7 @@ def solve_lineage_instance(
         base_rdict = {}
         for n in base_network:
             spl = n.split("_")
-            nn = Node("state-node", spl[0].split("|"), is_target=False)
+            nn = Node(n, spl[0].split("|"), is_target=False)
             if len(spl) > 1:
                 nn.pid = spl[1]
             if spl[0] in node_name_dict:
@@ -256,7 +256,7 @@ def solve_lineage_instance(
 
         for n in network:
             spl = n.split("_")
-            nn = Node("state-node", spl[0].split("|"), is_target=False)
+            nn = Node(n, spl[0].split("|"), is_target=False)
 
             if len(spl) == 2:
                 if "target" in n and nn.char_string not in target_seen:
@@ -288,7 +288,7 @@ def solve_lineage_instance(
                 rdict = {}
                 for n in res:
                     spl = n.split("_")
-                    nn = Node("state-node", spl[0].split("|"), is_target=False)
+                    nn = Node(n, spl[0].split("|"), is_target=False)
 
                     if len(spl) > 2:
                         nn.pid = spl[-1]
@@ -392,7 +392,7 @@ def solve_lineage_instance(
         rdict = {}
         for n in graph:
             spl = n.split("_")
-            nn = Node("state-node", spl[0].split("|"), is_target=False)
+            nn = Node(n, spl[0].split("|"), is_target=False)
             if len(spl) > 1:
                 nn.pid = spl[1]
             if spl[0] in node_name_dict and len(spl) == 1:
@@ -613,7 +613,7 @@ def find_good_gurobi_subgraph(
         + "). Proceeding to solver."
     )
 
-    for l in potential_network_priors.selfloop_edges():
+    for l in nx.selfloop_edges(potential_network_priors):
         potential_network_priors.remove_edge(l[0], l[1])
 
     nodes = list(potential_network_priors.nodes())

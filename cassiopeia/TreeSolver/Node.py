@@ -188,7 +188,9 @@ class Node:
 
 		print(self.name, self.char_string)
 
+	def __str__(self):
+		print(self.name)
 
-
-
+	def __repr__(self):
+		print(self.name)
 
